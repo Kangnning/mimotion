@@ -130,7 +130,17 @@ def login(user, password):
         "token": "access"
     }
     r1 = requests.post(url1, data=data1, headers=headers, allow_redirects=False)
-    location = r1.headers["Location"]
+    # location = r1.headers["Location"]
+    # 安全获取，不存在就返回None，不会炸KeyError
+    location = r1.headers.get("Location")
+
+# 增加登录失败判断
+    if not location:
+        print("登录失败！未获取到跳转地址")
+        print("响应状态码：", r1.status_code)
+        print("完整响应头：", r1.headers)
+        print("响应内容：", r1.text)
+        exit()
     try:
         code = get_code(location)
     except:
