@@ -1,7 +1,7 @@
 name: Random Cron
 on:
   workflow_run:
-    workflows: ["brush step"]
+    workflows: [" 刷步数"]
     types:
       - completed
 jobs:
